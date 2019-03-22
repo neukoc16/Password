@@ -1,6 +1,6 @@
 package htl.neuabuer.password;
 
-public class Password implements Runnable {
+public class Password{
 
     private final String password;
 
@@ -10,10 +10,5 @@ public class Password implements Runnable {
 
     public boolean check(String test) {
         return test.equals(password);
-    }
-
-    @Override
-    public void run() {
-
     }
 }
