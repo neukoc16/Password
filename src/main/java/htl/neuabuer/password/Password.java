@@ -1,10 +1,19 @@
 package htl.neuabuer.password;
 
-public class Password {
+public class Password implements Runnable {
 
-    private String password;
+    private final String password;
 
-    public boolean check(Password test) {
-        return false;
+    public Password(String password) {
+        this.password = password;
+    }
+
+    public boolean check(String test) {
+        return test.equals(password);
+    }
+
+    @Override
+    public void run() {
+
     }
 }
