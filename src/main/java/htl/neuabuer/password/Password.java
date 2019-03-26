@@ -1,6 +1,6 @@
 package htl.neuabuer.password;
 
-public class Password{
+public class Password {
 
     private final String password;
 

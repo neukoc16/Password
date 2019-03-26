@@ -1,24 +1,20 @@
 package htl.neuabuer.password;
 
-import java.util.Scanner;
+import java.util.LinkedList;
 
 public class Producer implements Runnable {
 
-    private final Password pw;
-    private final Scanner sc = new Scanner(System.in);
-    private final String in = sc.nextLine();
+    private Password pw;
+    private LinkedList<Password> list;
 
-    public Producer(Password pw) {
+    public Producer(Password pw, LinkedList list) {
         this.pw = pw;
+        this.list = list;
     }
 
     @Override
     public void run() {
-        if (in != null) {
-            System.out.format("Das Passwort ist: ", pw.check(in));
-        } else {
-            System.out.println("Kein Passwort eingegeben");
-        }
+        list.add(pw);
     }
 
 }
