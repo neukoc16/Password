@@ -1,8 +1,6 @@
 package htl.neuabuer.password;
 
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Producer implements Runnable {
 
@@ -17,13 +15,9 @@ public class Producer implements Runnable {
     @Override
     public void run() {
         if (in != null) {
-            pw.check(in);
+            System.out.format("Das Passwort ist: ", pw.check(in));
         } else {
-            try {
-                pw.wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("Kein Passwort eingegeben");
         }
     }
 
