@@ -16,8 +16,7 @@ public class Consumer implements Runnable {
     private final LinkedList<String> pws = new LinkedList<>();
     File file = new File("./pwds.txt");
 
-    public Consumer(Password pw, LinkedList list) {
-        this.pw = pw;
+    public Consumer(LinkedList list) {
         this.list = list;
     }
 
@@ -35,13 +34,24 @@ public class Consumer implements Runnable {
             Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
         }
         while (true) {
-            synchronized (pw) {
-                pw = list.getLast();
-                for (String password : pws) {
-                    if (pw.check(password) == true) {
-                        System.out.println("FOUND -> " + password);
-                        break;
+            synchronized (list) {
+                if (list.isEmpty()) {
+                    System.out.println("List empty!");
+                    try {
+                        list.wait();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    continue;
+                } else {
+                    pw = list.remove(0);
+                    list.notifyAll();
+                }
+            }
+            for (String password : pws) {
+                if (pw.check(password)) {
+                    System.out.println("FOUND -> " + password);
+                    break;
                 }
             }
         }
